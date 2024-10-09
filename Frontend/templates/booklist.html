@@ -1,0 +1,251 @@
+same animation {% block content %}
+<style>
+    /* General body styling */
+    body {
+        background-color: black;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Container for the entire page */
+    .container {
+        width: 90%;
+        margin: 30px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px white;
+    }
+
+    /* Heading styling */
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    h1:before {
+        content: "\1F4D6"; /* Book emoji */
+        font-size: 30px;
+        position: absolute;
+        left: calc(60% - 10px); /* Center alignment */
+        top: -10px;
+    }
+
+    /* Search bar styling */
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .search-container input {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-container button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-left: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        animation: pulse 1.5s infinite;
+    }
+
+    .search-container button:hover {
+        background-color: #064e9a;
+    }
+
+    /* Button styling at the top */
+    .top-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .top-buttons button {
+        padding: 12px 18px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .add-book {
+        background-color: #65287d;
+    }
+
+    .transaction-list {
+        background-color: #65287d;
+    }
+
+    .add-member {
+        background-color: #65287d;
+    }
+
+    .member-list {
+        background-color: #65287d;
+    }
+
+    .top-buttons button:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #f9f9f9;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: black;
+        color: white;
+        padding: 15px;
+        font-size: 16px;
+        text-align: left;
+        border-bottom: 2px solid #ccc;
+    }
+
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        color: #333;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f1f1f1;
+    }
+
+    /* Button styles for actions in table */
+    .action-buttons button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+        margin: 2px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .edit-button {
+        background-color: #007bff;
+    }
+
+    .delete-button {
+        background-color: #e74c3c;
+    }
+
+    .issue-button {
+        background-color: #28a745;
+    }
+
+    .action-buttons button:hover {
+        transform: translateY(-3px);
+        opacity: 0.85;
+    }
+
+    /* Transaction status */
+    .transaction-status {
+        font-style: italic;
+        color: #888;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Library Book List</h1>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" placeholder="Search books by title or author">
+        <button>Search</button>
+    </div>
+
+    <!-- Top Buttons -->
+    <div class="top-buttons">
+        <button class="add-book">Add New Book</button>
+        <button class="transaction-list">Transaction List</button>
+        <button class="add-member">Add New Member</button>
+        <button class="member-list">Members List</button>
+    </div>
+
+    <!-- Book List Table -->
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Publisher</th>
+            <th>Page Count</th>
+            <th>Available</th>
+            <th>Actions</th>
+            <th>Issue Book</th>
+            <th>Transaction</th>
+        </tr>
+        {% for i in booklist %}
+        <tr>
+            <td>{{ i.Title }}</td>
+            <td>{{ i.Author }}</td>
+            <td>{{ i.ISBN }}</td>
+            <td>{{ i.Publisher }}</td>
+            <td>{{ i.Page_count }}</td>
+            <td>{{ i.Available }}</td>
+            <td class="action-buttons">
+                <a href="{% url 'book_update' i.id %}">
+                    <button class="edit-button">Edit</button>
+                </a>
+                <a href="{% url 'book_delete' i.id %}">
+                    <button class="delete-button">Delete</button>
+                </a>
+            </td>
+            <td class="action-buttons">
+                <button class="issue-button">Issue Book</button>
+            </td>
+            <td class="transaction-status">No active transactions</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

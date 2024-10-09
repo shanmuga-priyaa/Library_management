@@ -1,0 +1,102 @@
+{% block content %}
+<style>
+    /* Overall body styling */
+    body {
+        background-color: black; /* Dark background color */
+        font-family: Arial, sans-serif; /* Font family */
+        color: #333; /* Default text color */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Center the form on the page */
+    form {
+        max-width: 600px; /* Increased max width for the form */
+        margin: 60px auto; /* Center the form */
+        padding: 30px; /* Padding inside the form */
+        background: #f9f9f9; /* Light background for the form */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        border: 1px solid #ddd; /* Light border */
+    }
+
+    /* Style the heading with slide-in and scale animation */
+    h1 {
+        color: #28a745; /* Green color for the heading */
+        font-size: 28px; /* Increased font size */
+        margin-bottom: 20px; /* Space below heading */
+        text-align: center; /* Centered heading */
+        opacity: 0;
+        transform: translateX(-100px) scale(0.5);
+        animation: slideInScale 1.5s ease forwards; /* Animation applied */
+    }
+
+    /* Keyframe animation for h1 */
+    @keyframes slideInScale {
+        0% {
+            opacity: 0;
+            transform: translateX(-100px) scale(0.5);
+        }
+        50% {
+            opacity: 0.5;
+            transform: translateX(0) scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+
+    /* Style the submit button */
+    button {
+        width: 100%; /* Full width */
+        padding: 12px; /* Padding inside button */
+        background-color: #28a745; /* Green background for button */
+        color: white; /* Button text color */
+        border: none; /* No border */
+        border-radius: 5px; /* Slightly rounded corners */
+        font-size: 18px; /* Increased font size */
+        cursor: pointer; /* Pointer cursor */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    }
+
+    /* Change the button color and scale on hover */
+    button:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: scale(1.05); /* Slightly enlarge button */
+    }
+
+    /* Style the form fields */
+    form input, form select, form textarea {
+        width: 100%; /* Full width for inputs */
+        padding: 12px; /* Padding inside fields */
+        margin: 10px 0; /* Margin around fields */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 5px; /* Slightly rounded corners */
+        color: #333; /* Default text color */
+        font-size: 16px; /* Standard font size */
+        box-sizing: border-box; /* Include padding in width */
+        transition: border-color 0.3s ease; /* Smooth transition */
+    }
+
+    /* Change border color on focus */
+    form input:focus, form select:focus, form textarea:focus {
+        outline: none; /* Remove outline */
+        border: 1px solid #28a745; /* Green border color on focus */
+    }
+
+    /* Style for the CSRF token (hidden) */
+    .csrf-token {
+        display: none; /* Hide CSRF token */
+    }
+</style>
+
+<form method="POST" enctype="multipart/form-data">
+    <h1>Add New Member</h1> <!-- Adjusted heading with animation -->
+    {% csrf_token %}
+    {{ memberForm }} 
+    <br>
+    <button type="submit">Add Member</button> <!-- Adjusted button text -->
+</form>
+
+{% endblock %}
